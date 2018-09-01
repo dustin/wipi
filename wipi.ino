@@ -7,6 +7,9 @@ const char* ssid = "Spy Wireless IX";
 const char* password = "monstercable";
 const char* myname = "wipi";
 
+const int pinMap[] = {D0, D1, D2, D3, D4, D5, D6, D7, D8};
+const int maxPin = 8;
+
 WiFiServer server(23);
 
 class Protocol {
@@ -32,6 +35,7 @@ Protocol* newSerialProtocol(WiFiClient);
 Protocol* newOneWireProtocol(WiFiClient);
 Protocol* newGPIOProtocol(WiFiClient);
 Protocol* newWS2812Protocol(WiFiClient);
+Protocol* newDHTProtocol(WiFiClient);
 
 struct {
     unsigned char initchar;
@@ -42,6 +46,7 @@ struct {
                  {'1', newOneWireProtocol},
                  {'g', newGPIOProtocol},
                  {'w', newWS2812Protocol},
+                 {'h', newDHTProtocol},
                  {'\0', 0},
 };
 
