@@ -31,6 +31,7 @@ Protocol* newAnalogProtocol(WiFiClient);
 Protocol* newSerialProtocol(WiFiClient);
 Protocol* newOneWireProtocol(WiFiClient);
 Protocol* newGPIOProtocol(WiFiClient);
+Protocol* newWS2812Protocol(WiFiClient);
 
 struct {
     unsigned char initchar;
@@ -40,6 +41,7 @@ struct {
                  {'a', newAnalogProtocol},
                  {'1', newOneWireProtocol},
                  {'g', newGPIOProtocol},
+                 {'w', newWS2812Protocol},
                  {'\0', 0},
 };
 
