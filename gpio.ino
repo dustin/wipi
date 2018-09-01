@@ -12,7 +12,7 @@ public:
             return;
         case '+': digitalWrite(currentPin, HIGH); break;
         case '-': digitalWrite(currentPin, LOW); break;
-        case 'p': digitalWrite(currentPin, INPUT_PULLUP); break;
+        case 'p': pinMode(currentPin, INPUT_PULLUP); break;
         case 'i': pinMode(currentPin, INPUT); break;
         case 'o': pinMode(currentPin, OUTPUT); break;
         case '0': currentPin = D0; break;
