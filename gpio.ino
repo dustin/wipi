@@ -1,6 +1,6 @@
 class GPIOProtocol : public Protocol {
 public:
-    GPIOProtocol(WiFiClient &c) : Protocol(c), currentPin(0) {}
+    GPIOProtocol(WiFiClient &c) : Protocol("GPIO", c), currentPin(0) {}
 
     void go() {
         if (!client.available()) {

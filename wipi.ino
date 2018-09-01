@@ -11,13 +11,15 @@ WiFiServer server(23);
 
 class Protocol {
 public:
-    Protocol(WiFiClient &c) : client(c) {}
+    Protocol(const char* n, WiFiClient &c) : name(n), client(c) {}
     virtual ~Protocol() {};
 
     virtual bool begin() {
         return true;
     }
     virtual void go() = 0;
+
+    const char *name;
 
 protected:
     WiFiClient client;
@@ -44,11 +46,6 @@ struct {
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW); // low is on, night is day
-
-    const int pins[]={D0, D1, D2, D3, D4, D5, D6, D7, D8};
-    for (int i = 0; i < sizeof(pins) / sizeof(D0); i++) {
-        pinMode(pins[i], INPUT);
-    }
 
     WiFi.mode(WIFI_STA);
     WiFi.hostname(myname);
@@ -83,7 +80,7 @@ Protocol* selectProtocol(WiFiClient client) {
             return protocols[i].mkProtocol(client);
         }
     }
-    client.write("unhandled protocol\n");
+    client.write("# unhandled protocol\n");
     return NULL;
 }
 
@@ -99,6 +96,10 @@ void loop() {
                 client.stop();
                 return;
             }
+            client.write("# found ");
+            client.write(prot->name);
+            client.println(" protocol, initializing...");
+
             if (!prot->begin()) {
                 client.stop();
                 delete prot;

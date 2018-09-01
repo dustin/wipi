@@ -1,6 +1,6 @@
 class SerialProtocol : public Protocol {
 public:
-    SerialProtocol(WiFiClient &c) : SerialProtocol(c) {}
+    SerialProtocol(WiFiClient &c) : Protocol("serial", c) {}
 
     ~SerialProtocol() {
         Serial.end();
@@ -14,6 +14,8 @@ public:
         }
         client.flush();
         Serial.begin(rate);
+        client.write("# Baud rate set to ");
+        client.println(rate);
         return true;
     }
 

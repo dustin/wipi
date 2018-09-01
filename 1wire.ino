@@ -2,7 +2,7 @@
 
 class OneWireProtocol : public Protocol {
 public:
-    OneWireProtocol(WiFiClient &c) : Protocol(c), ds(1) {}
+    OneWireProtocol(WiFiClient &c) : Protocol("1wire", c), ds(1) {}
 
     void go() {
         ds.reset_search();
